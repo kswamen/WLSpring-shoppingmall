@@ -24,7 +24,45 @@
 		INSERT INTO tbl_goods (gdsName, cateCode, gdsPrice, gdsStock, gdsDes)
 		VALUES (#{gdsName}, #{cateCode}, #{gdsPrice}, #{gdsStock}, #{gdsDes});
 	</insert>
-
+	
+	<!-- 상품 목록 -->
+	<select id = "goodslist" resultType = "com.shopping.domain.GoodsVO">
+		select 
+			gdsNum, gdsName, cateCode, gdsPrice, gdsStock, gdsDes, gdsImg, gdsDate
+		from tbl_goods
+			order by gdsNum desc
+	</select>
+	
+	<!-- 상품 조회 -->
+	<!--  
+	<select id = "goodsView" resultType = "com.shopping.domain.GoodsVO">
+		select gdsNum, gdsName, cateCode, gdsPrice, gdsStock, gdsDes, gdsImg, gdsDate
+			from tbl_goods
+				where gdsNum = #{gdsNum}
+	</select>
+	-->
+	
+	<!-- 상품 조회 + 카테고리 조인 -->
+	<select id = "goodsView" resultType = "com.shopping.domain.GoodsViewVO">
+		SELECT g.gdsNum, g.gdsName, g.cateCode, c.cateCodeRef, c.cateName, gdsPrice, gdsStock, gdsDes, gdsImg, gdsDate
+			FROM tbl_goods g 
+			INNER JOIN goods_category c
+			ON g.cateCode = c.cateCode
+			WHERE g.gdsNum = #{gdsNum}
+	</select>
+	
+	<!-- 상품 수정 -->
+	<update id = "goodsModify">
+		UPDATE tbl_goods SET gdsName = #{gdsName}, cateCode = #{cateCode}, 
+		gdsPrice = #{gdsPrice}, gdsStock = #{gdsStock}, gdsDes = #{gdsDes}
+		WHERE gdsNum = #{gdsNum};
+	</update>
+	
+	<!-- 상품 삭제 -->
+	<delete id = "goodsDelete">
+		delete from tbl_goods
+		where gdsNum = #{gdsNum}
+	</delete>
 </mapper>
 
 
