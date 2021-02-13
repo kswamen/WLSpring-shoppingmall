@@ -21,8 +21,8 @@
 	
 	<!-- 상품 등록 -->
 	<insert id = "register">
-		INSERT INTO tbl_goods (gdsName, cateCode, gdsPrice, gdsStock, gdsDes)
-		VALUES (#{gdsName}, #{cateCode}, #{gdsPrice}, #{gdsStock}, #{gdsDes});
+		INSERT INTO tbl_goods (gdsName, cateCode, gdsPrice, gdsStock, gdsDes, gdsImg, gdsThumbImg)
+		VALUES (#{gdsName}, #{cateCode}, #{gdsPrice}, #{gdsStock}, #{gdsDes}, #{gdsImg}, #{gdsThumbImg});
 	</insert>
 	
 	<!-- 상품 목록 -->
@@ -44,7 +44,7 @@
 	
 	<!-- 상품 조회 + 카테고리 조인 -->
 	<select id = "goodsView" resultType = "com.shopping.domain.GoodsViewVO">
-		SELECT g.gdsNum, g.gdsName, g.cateCode, c.cateCodeRef, c.cateName, gdsPrice, gdsStock, gdsDes, gdsImg, gdsDate
+		SELECT g.gdsNum, g.gdsName, g.cateCode, g.gdsImg, g.gdsThumbImg, c.cateCodeRef, c.cateName, gdsPrice, gdsStock, gdsDes, gdsImg, gdsDate
 			FROM tbl_goods g 
 			INNER JOIN goods_category c
 			ON g.cateCode = c.cateCode
@@ -54,8 +54,8 @@
 	<!-- 상품 수정 -->
 	<update id = "goodsModify">
 		UPDATE tbl_goods SET gdsName = #{gdsName}, cateCode = #{cateCode}, 
-		gdsPrice = #{gdsPrice}, gdsStock = #{gdsStock}, gdsDes = #{gdsDes}
-		WHERE gdsNum = #{gdsNum};
+		gdsPrice = #{gdsPrice}, gdsStock = #{gdsStock}, gdsDes = #{gdsDes}, 
+		gdsImg = #{gdsImg}, gdsThumbImg = #{gdsThumbImg} WHERE gdsNum = #{gdsNum};
 	</update>
 	
 	<!-- 상품 삭제 -->
@@ -63,6 +63,7 @@
 		delete from tbl_goods
 		where gdsNum = #{gdsNum}
 	</delete>
+
 </mapper>
 
 
