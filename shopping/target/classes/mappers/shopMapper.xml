@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shopping.mappers.shopMapper">
+
+	<select id = "list_1" resultType = "com.shopping.domain.GoodsViewVO">
+		SELECT g.gdsNum, g.gdsName, g.cateCode, c.cateCodeRef, c.cateName, 
+		gdsPrice, gdsStock, gdsDes,gdsImg,g.gdsImg, g.gdsThumbImg FROM tbl_goods g 
+		INNER JOIN goods_category c 
+		ON g.cateCode = c.cateCode 
+		WHERE g.cateCode = #{cateCode} or c.cateCodeRef = #{cateCodeRef}
+	</select>
+
+
+	<select id = "list_2" resultType = "com.shopping.domain.GoodsViewVO">
+		SELECT g.gdsNum, g.gdsName, g.cateCode, c.cateCodeRef, c.cateName, 
+		gdsPrice, gdsStock, gdsDes,gdsImg,g.gdsImg, g.gdsThumbImg FROM tbl_goods g 
+		INNER JOIN goods_category c 
+		ON g.cateCode = c.cateCode 
+		WHERE g.cateCode = #{cateCode}
+	</select>
+
+</mapper>
