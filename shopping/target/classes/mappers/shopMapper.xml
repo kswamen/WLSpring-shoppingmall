@@ -20,5 +20,43 @@
 		ON g.cateCode = c.cateCode 
 		WHERE g.cateCode = #{cateCode}
 	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id = "registReply">
+		INSERT INTO tbl_reply(gdsNum, userId, repCon)
+		VALUES (#{gdsNum}, #{userId}, #{repCon})
+	</insert>
+	
+	<!-- 댓글 리스트 -->
+	<select id = "replyList" resultType = "com.shopping.domain.ReplyListVO">
+		SELECT r.gdsNum, r.userId, r.repNum, r.repCon, r.repDate, m.userName
+		FROM tbl_reply r
+		INNER JOIN tbl_member m
+		ON r.userId = m.userId
+		WHERE gdsNum = #{gdsNum}
+	</select>
+	
+	<!-- 댓글 삭제 -->
+	<delete id = "deleteReply">
+		delete from tbl_reply 
+		where repNum = #{repNum}
+		and userId = #{userId}
+	</delete>
+	
+	<!-- 아이디 체크 -->
+	<select id = "replyuserIdCheck" resultType = "String">
+		select userId
+		from tbl_reply
+		where repNum = #{repNum}
+	</select>
+	
+	<!-- 댓글 수정 -->
+	<update id = "modifyReply">
+		update tbl_reply
+		set 
+			repCon = #{repCon}
+		where repNum = #{repNum}
+			and userId = #{userId}
+	</update>
 
 </mapper>
